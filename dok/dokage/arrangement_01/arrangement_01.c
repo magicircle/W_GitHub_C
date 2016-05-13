@@ -8,49 +8,18 @@
 //그러나 아직은 100개
 
 //  버블정렬
-void ascending(int icount, int *iAsnd) {
-	int exTemp = 0;
-	for (int i = 1; i < icount; i++) {
-		for (int j = 0; j < (icount-i); j++) {
-			if (iAsnd[j] > iAsnd[j + 1]) {
-				exTemp = iAsnd[j];
-				iAsnd[j] = iAsnd[j + 1];
-				iAsnd[j + 1] = exTemp;
-			}
-		}
-	}
-	
-	return;
-}
 
-//
-/*
-void ascending(int icount, int iAsnd[]) {
-	int exTemp = 0;
-	for (int i = 1; i < icount; i++) {
-		for (int j = i ; j > 0 ; j--) {
-			if (iAsnd[j] < iAsnd[j - 1]) {
-				exTemp = iAsnd[j];
-				iAsnd[j] = iAsnd[j - 1];
-				iAsnd[j - 1] = exTemp;
-				
-			}
-		}
-	}
-	for (int i = 0; i < icount; i++)
-		printf("%d ", iAsnd[i]);
-	printf("\n\n");
+# define SORTNUMBER 1000
 
-	return;
-}
-*/
+int bubbleSort(int sFlag, int icount, int *iAsnd);
 
 int main(void) {
 	int maxnum = 0;
-	int icount = 20;
-	int inum[20] = { 0 };
+	const int icount = SORTNUMBER;
+	int inum[SORTNUMBER] = { 0 };
 	int iarrange = 1;
 	srand((unsigned)time(NULL));
+	int swap_Count;
 
 //
 //	while (1) {
@@ -62,19 +31,36 @@ int main(void) {
 //	}
 //
 	for (int i = 0; i < icount; i++) {
-		inum[i] = rand()%1000;
+		inum[i] = rand() % SORTNUMBER;
 	}
 
 	printf("\n");
 
 	printf("오름차순 정렬입니다 : ");
-	ascending(icount, inum);
+	
+	swap_Count = bubbleSort(0, icount, inum);
 
 	for (int i = 0; i < icount; i++)
 		printf("%d ", inum[i]);
 	printf("\n\n");
-
-	
+	printf(" SWAP 반복횟수 %d : ", swap_Count);
 	return 0;
-
 }
+
+int bubbleSort(int sFlag, int icount, int *iAsnd) {
+	int exTemp = 0;
+	int sort_IFcount = 0;
+	for (int i = 1; i < icount; i++) {
+		for (int j = 0; j < (icount - i); j++) {
+			if ((iAsnd[j] > iAsnd[j + 1])==sFlag) {
+				exTemp = iAsnd[j];
+				iAsnd[j] = iAsnd[j + 1];
+				iAsnd[j + 1] = exTemp;
+				sort_IFcount++;
+			}
+		}
+	}
+
+	return sort_IFcount;
+}
+
